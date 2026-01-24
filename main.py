@@ -58,7 +58,7 @@ def login():
     return render_template_string(f"""
     <html><head>{CSS}</head><body style="background:#121212"><div class="app-container d-flex align-items-center p-4">
         <div class="dragon-card w-100 p-4 shadow-lg text-center">
-            <h2 class="fw-bold mb-4">DragonPay ðŸ²</h2>
+            <h2 class="fw-bold mb-4">DragonPay &#128009</h2>
             <form action="/auth" method="post">
                 <input type="email" name="email" placeholder="Gmail Address" class="form-control mb-3 py-3 rounded-3" required>
                 <input type="password" name="pw" placeholder="Password" class="form-control mb-4 py-3 rounded-3" required>
@@ -91,9 +91,9 @@ def home():
     return render_template_string(f"""
     <html><head>{CSS}</head><body><div class="app-container">
     <div class="header-card">
-        <div class="d-flex justify-content-between mb-3"><span class="fw-bold">DragonPay ðŸ²</span><i class="bi bi-gear"></i></div>
+        <div class="d-flex justify-content-between mb-3"><span class="fw-bold">DragonPay &#128009</span><i class="bi bi-gear"></i></div>
         <small class="opacity-75">Available Balance</small>
-        <div class="display-5 fw-bold text-warning mb-2">â‚¹{{{{u.balance}}}}.00</div>
+        <div class="display-5 fw-bold text-warning mb-2">&#8377;{{{{u.balance}}}}.00</div>
         <div class="badge bg-secondary">UID: {{{{u.uuid}}}}</div>
     </div>
     
@@ -115,7 +115,7 @@ def home():
                 <span><b>{{{{o.type}}}} Request</b><br><small class="text-muted">{{{{o.time}}}}</small></span>
                 <span class="fw-bold text-warning small">PENDING...</span>
             </div>
-            <div class="mt-2 fw-bold text-dark">â‚¹{{{{o.amt}}}}</div>
+            <div class="mt-2 fw-bold text-dark">&#8377;{{{{o.amt}}}}</div>
         </div>
         {{% endfor %}}
         {{% endif %}}
@@ -150,7 +150,7 @@ def buy():
                     let amt = Math.floor(Math.random()*(max-min+1))+min;
                     let rew = (amt * (bonus/100)).toFixed(0);
                     html += `<div class="dragon-card d-flex justify-content-between align-items-center fade-in">
-                        <div><div class="market-amt">â‚¹${{amt}}</div><span class="reward-badge">+â‚¹${{rew}} Bonus (DRB)</span></div>
+                        <div><div class="market-amt">&#8377;${{amt}}</div><span class="reward-badge">+&#8377;${{rew}} Bonus (DRB)</span></div>
                         <button onclick="location.href='/pay_mode/${{amt}}?reward=${{rew}}'" class="btn btn-warning btn-sm fw-bold px-4 rounded-pill">BUY</button>
                     </div>`;
                 }}
@@ -186,7 +186,7 @@ def sell():
     <h5 class="fw-bold mb-4"><i class="bi bi-chevron-left me-2" onclick="location.href='/home'"></i>Sell Coins</h5>
     <div class="dragon-card text-white p-4" style="background:#198754">
         <small class="opacity-75">Current Balance</small>
-        <h2 class="fw-bold">â‚¹{{{{u.balance}}}}.00</h2>
+        <h2 class="fw-bold">&#8377;{{{{u.balance}}}}.00</h2>
     </div>
     <form method="post" class="mt-4">
         <label class="small fw-bold mb-2">Withdraw Amount (Multiples of 100)</label>
@@ -213,7 +213,7 @@ def profile():
     return render_template_string(f"""
     <html><head>{CSS}</head><body><div class="app-container">
     <div class="header-card text-center">
-        <h3 class="fw-bold mb-0 text-warning">â‚¹{{{{u.get('balance', 0)}}}}.00</h3>
+        <h3 class="fw-bold mb-0 text-warning">&#8377;{{{{u.get('balance', 0)}}}}.00</h3>
         <small class="opacity-75">VIRTUAL BALANCE</small>
     </div>
     <div class="p-3">
@@ -296,7 +296,7 @@ def orders():
         <div class="tab-pane fade show active" id="b-logs">
             {{% for o in buys %}}
             <div class="dragon-card d-flex justify-content-between align-items-center" onclick='showDet({{{{o|tojson}}}})'>
-                <div><div class="fw-bold text-dark">â‚¹{{{{o.amt}}}}</div><small class="text-muted">{{{{o.time}}}}</small></div>
+                <div><div class="fw-bold text-dark">&#8377;{{{{o.amt}}}}</div><small class="text-muted">{{{{o.time}}}}</small></div>
                 <span class="badge {{{{ 'bg-success' if o.status=='Completed' else 'bg-warning text-dark' }}}}">{{{{o.status}}}}</span>
             </div>
             {{% endfor %}}
@@ -304,7 +304,7 @@ def orders():
         <div class="tab-pane fade" id="s-logs">
             {{% for o in sells %}}
             <div class="dragon-card d-flex justify-content-between align-items-center" onclick='showDet({{{{o|tojson}}}})'>
-                <div><div class="fw-bold text-dark">â‚¹{{{{o.amt}}}}</div><small class="text-muted">{{{{o.time}}}}</small></div>
+                <div><div class="fw-bold text-dark">&#8377;{{{{o.amt}}}}</div><small class="text-muted">{{{{o.time}}}}</small></div>
                 <span class="badge {{{{ 'bg-success' if o.status=='Completed' else 'bg-warning text-dark' }}}}">{{{{o.status}}}}</span>
             </div>
             {{% endfor %}}
@@ -324,8 +324,8 @@ def orders():
             let html = `
                 <div class="detail-row"><span>Order ID</span><span class="fw-bold">${{o.oid}}</span></div>
                 <div class="detail-row"><span>Type</span><span class="fw-bold text-uppercase">${{o.type}}</span></div>
-                <div class="detail-row"><span>Amount</span><span class="fw-bold text-success">â‚¹${{o.amt}}</span></div>
-                <div class="detail-row"><span>Reward</span><span class="fw-bold text-primary">â‚¹${{o.reward || 0}}</span></div>
+                <div class="detail-row"><span>Amount</span><span class="fw-bold text-success">&#8377;${{o.amt}}</span></div>
+                <div class="detail-row"><span>Reward</span><span class="fw-bold text-primary">&#8377;${{o.reward || 0}}</span></div>
                 <div class="detail-row"><span>Status</span><span class="badge bg-dark">${{o.status}}</span></div>
                 <div class="detail-row"><span>Date</span><span class="fw-bold">${{o.time}}</span></div>
                 <div class="detail-row"><span>UTR/Ref</span><span class="fw-bold">${{o.utr || 'N/A'}}</span></div>
@@ -387,8 +387,8 @@ def pay_now(mode, amt):
     <html><head>{CSS}</head><body><div class="app-container p-3">
         <div class="text-center mb-4">
             <small class="text-muted">You are Paying</small>
-            <h1 class="fw-bold">â‚¹{amt}</h1>
-            <span class="badge bg-success">Reward: â‚¹{reward}</span>
+            <h1 class="fw-bold">&#8377;{amt}</h1>
+            <span class="badge bg-success">Reward: &#8377;{reward}</span>
         </div>
         <div class="dragon-card border-warning border">
             <label class="small text-muted mb-2">{mode} Information:</label>
@@ -437,7 +437,7 @@ def admin_login_page():
     return render_template_string(f"""
     <html><head>{CSS}</head><body style="background:#121212"><div class="app-container d-flex align-items-center p-4">
         <div class="dragon-card w-100 p-4 shadow-lg text-center">
-            <h2 class="fw-bold mb-4 text-danger">ADMIN PANEL ðŸ› ï¸</h2>
+            <h2 class="fw-bold mb-4 text-danger">ADMIN PANEL  &#128736</h2>
             <form action="/admin/auth" method="post">
                 <input type="password" name="pin" placeholder="Enter Admin PIN" class="form-control mb-4 py-3 rounded-3 text-center" required>
                 <button class="btn btn-danger w-100 py-3 fw-bold rounded-3">ACCESS PANEL</button>
@@ -483,8 +483,8 @@ def admin_dashboard():
                     <div class="d-flex justify-content-between">
                         <span><b>Buy Coin</b><br><small class="text-muted">{{{{o.phone.replace(',','.')}}}}</small></span>
                         <div>
-                           <b class="text-success fs-5">â‚¹{{{{o.amt}}}}</b><br>
-                           <small class="badge bg-info text-dark">+â‚¹{{{{o.reward}}}} Rew</small>
+                           <b class="text-success fs-5">&#8377;{{{{o.amt}}}}</b><br>
+                           <small class="badge bg-info text-dark">+&#8377;{{{{o.reward}}}} Rew</small>
                         </div>
                     </div>
                     <div class="mt-2 p-2 bg-light rounded small border">
@@ -504,7 +504,7 @@ def admin_dashboard():
                 <div class="dragon-card border-start border-primary border-4 shadow-sm fade-in">
                     <div class="d-flex justify-content-between">
                         <span><b>Sell Request</b><br><small class="text-muted">{{{{o.phone.replace(',','.')}}}}</small></span>
-                        <b class="text-danger fs-5">â‚¹{{{{o.amt}}}}</b>
+                        <b class="text-danger fs-5">&#8377;{{{{o.amt}}}}</b>
                     </div>
                     <div class="mt-2 p-2 bg-light rounded small border">
                         <b>Withdrawal Details:</b><br>{{{{o.w_info}}}}
